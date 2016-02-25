@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-	
-	<record id="pricelist_items_action" model="ir.actions.act_window">
+		<record id="pricelist_item_view_tree" model="ir.ui.view">
+			<field name="name">pricelist.item.tree</field>
+			<field name="model">product.pricelist.item</field>
+			<field name="arch" type="xml">
+				<tree string="Schedule records" editable="">
+					<field name="name"/>
+					<field name="product_id"/>
+					<field name="price_discount"/>
+					<field name="price_surcharge"/>
+					<field name="base"/>
+					<field name="base_pricelist_id"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="pricelist_items_action" model="ir.actions.act_window">
             <field name="name">Elementos de tarifa</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">product.pricelist.item</field>
