@@ -19,43 +19,36 @@ class SaleOrder(models.Model):
 
 	offers_lines = fields.One2many('offer.sale.order.line','sale_order_ref', string="Lineas de Ofertas")
 
-	@api.onchange('offers_lines')
-	def _onchange_offers_lines(self):
-		_logger.warning("SALE ORDER _onchange_offers_lines() INIT ")
-		for order_line in self.order_line:
-			_logger.warning("PRE LINEAS DE ORDENES DE VENTA: ID : {0} ; Producto : {1} ; Cantidad : {2} ; Precio : {3} ; ".format(order_line.id,order_line.product_id, order_line.product_uom_qty, order_line.price_unit))
-				
-				
+	@api.multi
+	def onchange_offers_lines(self):
+		_logger.warning("SALE ORDER _onchange_offers_lines() INIT ")				
 		for offer_line in self.offers_lines:
-			offer = offer_line.offer_ref
-			for gift in offer.gift_id:
-				for gift_line in gift.giftline_id:
-					_logger.warning("_onchange_offers_lines REGALO --> Producto {0} ; Cantidad : {1} ; Precio Fijo {2} ".format(gift_line.free_product.id,gift_line.qty,gift_line.fix_price) )
-					is_fix_price = gift_line.fix_price > 0.0
+			if offer_line.is_active:
+				offer = offer_line.offer_ref
+				for gift in offer.gift_id:
+					for gift_line in gift.giftline_id:
+						is_fix_price = gift_line.fix_price > 0.0
 
-					if is_fix_price:
-						_logger.warning("_onchange_offers_lines is_fix_price")	
-						for order_line in self.order_line:
-							if  gift_line.free_product.id == order_line.product_id.id:
-								_logger.warning("applyOffer set fix price FROM {0} TO {1} ".format(order_line.price_unit,gift_line.fix_price))	
-								order_line.price_unit = gift_line.fix_price
-								#order_line.set_price()
-					else:
-						val = {
-							'name': gift_line.free_product.name,
-							'order_id': self.id,
-							'product_id': gift_line.free_product.id,
-							'product_uom_qty':  gift_line.qty,
-							'product_uom': self.order_line[0].product_uom.id,
-							'price_unit': 0.0,
-							'state': 'draft',
-						}
+						if is_fix_price:
+							_logger.warning("_onchange_offers_lines is_fix_price")	
+							for order_line in self.order_line:
+								if  gift_line.free_product.id == order_line.product_id.id:
+									_logger.warning("applyOffer set fix price FROM {0} TO {1} ".format(order_line.price_unit,gift_line.fix_price))	
+									order_line.price_unit = gift_line.fix_price
+									#order_line.set_price()
+						else:
+							val = {
+								'name': gift_line.free_product.name,
+								'order_id': self.id,
+								'product_id': gift_line.free_product.id,
+								'product_uom_qty':  gift_line.qty * offer_line.accumulations,
+								'product_uom': self.order_line[0].product_uom.id,
+								'price_unit': 0.0,
+								'state': 'draft',
+							}
 
-						self.order_line |= self.env['sale.order.line'].new(val)
-						_logger.warning("NUEVA LINEA !!")			
-		
-		for order_line in self.order_line:
-			_logger.warning("POST LINEAS DE ORDENES DE VENTA: ID : {0} ; Producto : {1} ; Cantidad : {2} ; Precio : {3} ; ".format(order_line.id,order_line.product_id, order_line.product_uom_qty, order_line.price_unit))						
+							self.order_line |= self.env['sale.order.line'].new(val)
+							_logger.warning("NUEVA LINEA !!")			
 
 	@api.onchange('order_line')
 	def _onchange_order_line(self):

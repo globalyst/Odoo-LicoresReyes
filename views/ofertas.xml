@@ -17,8 +17,11 @@
 							<field name="is_active"/>
 						</tree>
 					</field>
+					<button name="onchange_offers_lines" type="object" string="Aplicar Ofertas" class="oe_highlight" />
 				</page>
-
+			</xpath>
+			<xpath expr="//field[@name='order_line']" position='after'>
+				<button name="onchange_offers_lines" type="object" string="Aplicar Ofertas" class="oe_highlight" />
 			</xpath>
 		</field>
 	</record>
