@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+	
+	<!-- DESCUENTOS EN PARTNERS -->
+	<record id="discount_partner_form_view" model="ir.ui.view">
+		<field name="name">res.partner.form</field>
+		<field name="model">res.partner</field>
+		<field name="inherit_id" ref="base.view_partner_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//page[@name='sales_purchases']" position='after'>
+				<page string='Descuentos'>
+	    			<field name="discount_lines">
+						<tree string="Descuentos" editable="bottom"> 
+							<field name="product_id"/>
+							<field name="is_active"/>
+							<field name="percentage"/>
+							<field name="fix_discount"/>
+							<field name="fix_price"/>
+						</tree>
+					</field>
+				</page>
+			</xpath>
+			<xpath expr="//field[@name='category_id']" position='after'>
+				<field name="is_group" /> <label for="is_group" string="Is a Group?"/>
+				<field name="partner_group" domain="[('is_group', '=', True)]"/>
+			</xpath>
+		</field>
+	</record>
+
+
+
+	<!-- DESCUENTOS -->
+	
+		<!-- VISTA DE ÁRBOL -->
+		<record model="ir.ui.view" id="offer_tree_view">
+		    <field name="sequence" eval="0"/>
+            <field name="name">discount.line.tree</field>
+            <field name="model">discount.line</field>
+            <field name="arch" type="xml">
+                <tree string="Descuentos">
+                    <field name="product_id"/>
+					<field name="is_active"/>
+					<field name="percentage"/>
+					<field name="fix_price"/>
+					<field name="fix_discount"/>
+				    <field name="partner_ref"/>
+                </tree>
+            </field>
+        </record>
+		
+
+
+   </data>
+</openerp>

@@ -82,9 +82,9 @@ class Precondition(models.Model):
 	
 class PreconditionLine(models.Model):
 	_name = 'offer.precondition.line'
-	paid_product = fields.Many2one('product.template',ondelete='set null', string="Producto a pagar", index=True) 
+	paid_product = fields.Many2one('product.product',ondelete='set null', string="Producto a pagar", index=True) 
 	qty_min = fields.Integer(string='Cantidad minima')
-	price_min = fields.Float(digits=(6, 2), help="Precio minimo")
+	price_min = fields.Float(digits=(6, 2), string="Precio minimo")
 	precondition_id = fields.Many2one('offer.precondition',ondelete='cascade', string="Precondicion", required=True)
 		
 
@@ -96,8 +96,8 @@ class Gift(models.Model):
 	
 class GiftLine(models.Model):
 	_name = 'offer.gift.line'
-	free_product = fields.Many2one('product.template',ondelete='set null', string="Producto a regalar", index=True)
+	free_product = fields.Many2one('product.product',ondelete='set null', string="Producto a regalar", index=True)
 	qty = fields.Integer(string='Cantidad a regalar')
-	fix_price = fields.Float(digits=(6, 2), help="Precio fijo")
+	fix_price = fields.Float(digits=(6, 2), string="Precio fijo")
 	gift_id = fields.Many2one('offer.gift',ondelete='cascade', string="Regalo", required=True)
 	

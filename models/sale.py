@@ -7,20 +7,53 @@ class OfferSaleOrderLine(models.Model):
 	_name = 'offer.sale.order.line'
 	sale_order_ref = fields.Many2one('sale.order',ondelete='set null', string="Sale Order", index=True) 
 	offer_ref = fields.Many2one('offer',ondelete='set null', string="Oferta", index=True) 
-	is_active = fields.Boolean(default=True,string='Activo')
-	accumulations = fields.Float(digits=(6, 2), help="Acumulaciones")
-	@api.multi
-	def unlink(self):
-		_logger.warning("WOOOOOO OfferSaleOrderLine unlink DELETEEEEE ")
-		return models.Model.unlink(self)
+	is_active = fields.Boolean(default=False,string='Activo')
+	accumulations = fields.Float(digits=(6, 2), string="Acumulaciones",  help="Acumulaciones")
 
+class DiscountSaleOrderLine(models.Model):
+	_name = 'discount.sale.order.line'
+	sale_order_ref = fields.Many2one('sale.order',ondelete='set null', string="Sale Order", index=True) 
+	is_active = fields.Boolean(default=True,string='Activo')	
+	product_id = fields.Many2one('product.product',ondelete='set null', string="Producto a descontar", index=True)
+	percentage = fields.Float(digits=(6, 2), string="Descuento (%)")
+	fix_price = fields.Float(digits=(6, 2), string="Precio fijo")
+	fix_discount = fields.Float(digits=(6, 2), string="Descuento fijo")
+	
 class SaleOrder(models.Model):
 	_inherit = 'sale.order'
 
 	offers_lines = fields.One2many('offer.sale.order.line','sale_order_ref', string="Lineas de Ofertas")
+	discount_lines = fields.One2many('discount.sale.order.line','sale_order_ref', string="Lineas de Descuentos")
 
 	@api.multi
-	def onchange_offers_lines(self):
+	def apply_discountsAndOffers(self):
+		self.apply_discounts()
+		self.apply_offers()
+		
+	
+	@api.multi
+	def apply_discounts(self):
+		_logger.warning("SALE ORDER apply_discounts() INIT --> LENGTH DISCOUNT LINES {0} ;  ".format(len(self.discount_lines)))	
+		for discount_line in self.discount_lines:
+			_logger.warning("SALE ORDER apply_discounts() discount_line --> product {0} ; is_active {1} ; percentage {2} ; fix_price {3} ;  ".format(discount_line.product_id,discount_line.is_active,discount_line.percentage,discount_line.fix_price))	
+			if discount_line.is_active:
+				_logger.warning("SALE ORDER apply_discounts()  --> LENGTH self.order_line;  ".format(len(self.order_line)))	
+				for order_line in self.order_line:
+					_logger.warning("SALE ORDER apply_discounts() order_line --> product : {0} ; price_unit : {1} ;  ".format(order_line.product_id.id,order_line.price_unit))	
+					if  discount_line.product_id.id == order_line.product_id.id:
+						if discount_line.fix_price > 0.0:
+							order_line.price_unit = discount_line.fix_price
+							_logger.warning("SALE ORDER apply_discounts() discount_line.fix_price  > 0.0  --> order_line.price_unit : {0}".format(order_line.price_unit))	
+						elif discount_line.fix_discount:
+							order_line.price_unit = (order_line.price_unit - discount_line.fix_discount) 
+							_logger.warning("SALE ORDER apply_discounts() discount_line.fix_price  <= 0.0  --> order_line.price_unit : {0}".format(order_line.price_unit))
+						else:
+							order_line.price_unit = (order_line.price_unit * (1 - (discount_line.percentage) / 100.0) )
+							_logger.warning("SALE ORDER apply_discounts() discount_line.fix_price  <= 0.0  --> order_line.price_unit : {0}".format(order_line.price_unit))
+		
+	
+	@api.multi
+	def apply_offers(self):
 		_logger.warning("SALE ORDER _onchange_offers_lines() INIT ")				
 		for offer_line in self.offers_lines:
 			if offer_line.is_active:
@@ -50,6 +83,8 @@ class SaleOrder(models.Model):
 							self.order_line |= self.env['sale.order.line'].new(val)
 							_logger.warning("NUEVA LINEA !!")			
 
+							
+
 	@api.onchange('order_line')
 	def _onchange_order_line(self):
 		_logger.warning("SALE ORDER _onchange_order_line() INIT offers_lines {0} ; Sale Order ID : {1}".format( len(self.offers_lines),self.id))
@@ -70,36 +105,43 @@ class SaleOrder(models.Model):
 				product_uom = self.order_line[0].product_uom;
 				
 				if is_offer > 0.0: 
-					self.offers_lines += self.env['offer.sale.order.line'].new({'is_active': True, 'offer_ref': offer, 'accumulations' : is_offer})
+					self.offers_lines += self.env['offer.sale.order.line'].new({'is_active': False, 'offer_ref': offer, 'accumulations' : int(is_offer) })
 			
 			for offer in self.offers_lines:
 				_logger.warning("POST LINEAS DE OFERTAS: ID : {0} ; is_active : {1} ; offer_ref : {2} ; accumulations : {3} ; ".format(offer.id,offer.is_active, offer.offer_ref.id, offer.accumulations))						
 	
-class SaleOrderLine(models.Model):
-	_inherit = 'sale.order.line'
-
-	@api.multi
-	def set_price(self):
-		_logger.warning("sale.order.line set_price")
-		self.price_unit = 2.23
 	
-	@api.onchange('order_id.offers_lines')
-	def calcule_price(self):
-		_logger.warning("sale.order.line calcule_price	 wwwwwwwwwwwwwwwwwwwwwwwwwwoooooooooooooooooooooooooooooooooooooo")
+	@api.onchange('partner_invoice_id')
+	def onchange_partner_invoice_id(self):
+		_logger.warning("SALE ORDER onchange_partner_invoice_id() INIT --> Self : {0} ; Self ID : {1} ; self.discount_lines len : {2} ;".format(self,self.id, len(self.discount_lines)))		
+
+		for line in self.discount_lines:
+			self.discount_lines -= line
 		
-	@api.onchange('product_id')
-	def _onchange_product(self):
-		self.price_unit = 2.1
-		_logger.warning("sale.order.line _onchange_product")
-	
-	@api.onchange('price_subtotal')
-	def _onchange_price_subtotal(self):
-		self.price_unit = 2.3
-		_logger.warning("sale.order.line _onchange_price_subtotal")
-    
-	@api.multi
-	def product_id_change(self, pricelist, product, qty=0, uom=False, qty_uos=0, uos=False,name='', partner_id=False, lang=False, update_tax=True,date_order=False, packaging=False, fiscal_position=False, flag=False):
-		res = super(SaleOrderLine, self).product_id_change(pricelist, product, qty=qty, uom=uom, qty_uos=qty_uos, uos=uos,name=name, partner_id=partner_id, lang=lang, update_tax=update_tax,date_order=date_order, packaging=packaging,fiscal_position=fiscal_position, flag=flag) 
-		_logger.warning("WOOOOOO product_id_change INIT")
+		for record in self:
+			_logger.warning("record {0}".format(record))
+		
+		#sale_order = self.pool.get('sale.order').browse(self,context)
+		discount_lines = self.partner_id.discount_lines
+		if self.partner_id.partner_group.id != False and len (self.partner_id.partner_group.discount_lines) > 0:
+			discount_lines = self.partner_id.partner_group.discount_lines
+			
+		is_active = (self.partner_id.partner_group.id != False) and (len (self.partner_id.partner_group.discount_lines) > 0)
+		for discount in self.partner_id.partner_group.discount_lines:
+			self.newDiscount(discount,is_active)
 
-		return res
+		for discount in self.partner_id.discount_lines:
+			self.newDiscount(discount,not is_active)
+	
+	@api.model
+	def newDiscount(self,discount,is_active):
+			_logger.warning("SALE ORDER _onchange_partner() Descuento --> Producto : {0} ; percentage : {1} ; fix_price : {2} ; ".format(discount.product_id, discount.percentage , discount.fix_price))		
+			val = {
+				'product_id': discount.product_id.id,
+				'is_active': is_active,
+				'percentage': discount.percentage,
+				'fix_price':  discount.fix_price,
+			}
+			
+			new_discount = self.env['discount.sale.order.line'].new(val)
+			self.discount_lines |= new_discount	
