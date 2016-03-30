@@ -49,12 +49,12 @@
 				</field>
 		</record>
 		
-		<menuitem id="main_licores_reyes" name="Licores Reyes" groups=""/>
-			<menuitem id="tarification_menu" name="Tarificación" parent="main_licores_reyes" groups=""/>
-				<menuitem id="discount_menu" name="Descuentos" parent="tarification_menu" action="discount_action" groups=""/>
-				<menuitem id="offer_menu" name="Ofertas" parent="tarification_menu" action="offer_action" groups=""/>
-					<menuitem id="precondition_menu" name="Precondiciones" parent="offer_menu" action="offer_precondition_action" groups=""/>
-					<menuitem id="gift_menu" name="Precondiciones" parent="offer_menu" action="offer_gift_action" groups=""/>
+		<menuitem id="main_licores_reyes" name="Licores Reyes"/>
+			<menuitem id="tarification_menu" name="Tarificación" parent="main_licores_reyes"/>
+				<menuitem id="discount_menu" name="Descuentos" parent="tarification_menu" action="discount_action"/>
+				<menuitem id="offer_menu" name="Ofertas" parent="tarification_menu" action="offer_action" />
+					<menuitem id="precondition_menu" name="Precondiciones" parent="offer_menu" action="offer_precondition_action"/>
+					<menuitem id="gift_menu" name="Precondiciones" parent="offer_menu" action="offer_gift_action" />
 			
 
 		<!-- VISTA DE ORDENES DE VENTA, PESTANAS DE OFERTAS Y DESCUENTOS-->
