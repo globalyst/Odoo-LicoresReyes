@@ -27,8 +27,8 @@
 
     # always loaded
     'data': [
-        'templates.xml',
-	    'security/ir.model.access.csv',
+        "templates.xml",
+	    "security/ir.model.access.csv",
 		"views/elementos_de_tarifa.xml",
 		"views/ofertas.xml",
 		"views/descuentos.xml",
