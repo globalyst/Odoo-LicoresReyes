@@ -19,6 +19,18 @@ class DiscountSaleOrderLine(models.Model):
 	fix_price = fields.Float(digits=(6, 2), string="Precio fijo")
 	fix_discount = fields.Float(digits=(6, 2), string="Descuento fijo")
 	
+	
+class SaleOrderLine(models.Model):
+	_inherit = 'sale.order.line'
+	pricelist_price = fields.Float(digits=(6, 2), string="Precio Tarifa")
+	
+	@api.multi
+	@api.onchange('name')
+	def name_change(self):
+		_logger.warning("SALE ORDER LINE  _onchange_order_line() Self ID {0} ; Price Unit: {1} ".format(self.id,self.price_unit))
+		self.pricelist_price = self.price_unit
+		
+	
 class SaleOrder(models.Model):
 	_inherit = 'sale.order'
 
@@ -37,18 +49,28 @@ class SaleOrder(models.Model):
 		for discount_line in self.discount_lines:
 			_logger.warning("SALE ORDER apply_discounts() discount_line --> product {0} ; is_active {1} ; percentage {2} ; fix_price {3} ;  ".format(discount_line.product_id,discount_line.is_active,discount_line.percentage,discount_line.fix_price))	
 			if discount_line.is_active:
-				_logger.warning("SALE ORDER apply_discounts()  --> LENGTH self.order_line;  ".format(len(self.order_line)))	
 				for order_line in self.order_line:
-					_logger.warning("SALE ORDER apply_discounts() order_line --> product : {0} ; price_unit : {1} ;  ".format(order_line.product_id.id,order_line.price_unit))	
 					if  discount_line.product_id.id == order_line.product_id.id:
+						product = order_line.product_id.with_context(
+							lang=order_line.order_id.partner_id.lang,
+							partner=order_line.order_id.partner_id.id,
+							quantity=order_line.product_uom_qty,
+							date=order_line.order_id.date_order,
+							pricelist=order_line.order_id.pricelist_id.id,
+							uom=order_line.product_uom.id
+						)
+						pricelist_price = self.env['account.tax']._fix_tax_included_price(product.price, product.taxes_id, order_line.tax_id.id)
+						_logger.warning("SALE ORDER apply_discounts() order_line --> PRICELIST_PRICE {0} ; ".format(pricelist_price))
+						order_line.pricelist_price = pricelist_price
+						_logger.warning("SALE ORDER apply_discounts() order_line --> product : {0} ; price_unit : {1} ; pricelist_price : {2} ; ".format(order_line.product_id.id,order_line.price_unit,order_line.pricelist_price))	
 						if discount_line.fix_price > 0.0:
 							order_line.price_unit = discount_line.fix_price
 							_logger.warning("SALE ORDER apply_discounts() discount_line.fix_price  > 0.0  --> order_line.price_unit : {0}".format(order_line.price_unit))	
 						elif discount_line.fix_discount:
-							order_line.price_unit = (order_line.price_unit - discount_line.fix_discount) 
+							order_line.price_unit = (order_line.pricelist_price - discount_line.fix_discount) 
 							_logger.warning("SALE ORDER apply_discounts() discount_line.fix_price  <= 0.0  --> order_line.price_unit : {0}".format(order_line.price_unit))
 						else:
-							order_line.price_unit = (order_line.price_unit * (1 - (discount_line.percentage) / 100.0) )
+							order_line.price_unit = (order_line.pricelist_price * (1 - (discount_line.percentage) / 100.0) )
 							_logger.warning("SALE ORDER apply_discounts() discount_line.fix_price  <= 0.0  --> order_line.price_unit : {0}".format(order_line.price_unit))
 		
 	
