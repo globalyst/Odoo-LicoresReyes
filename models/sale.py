@@ -59,8 +59,7 @@ class SaleOrder(models.Model):
 							pricelist=order_line.order_id.pricelist_id.id,
 							uom=order_line.product_uom.id
 						)
-						_logger.warning("SALE ORDER apply_discounts() order_line --> product.price :  {0} ; product.taxes_id :  {1} ; order_line.tax_id : {2}; ".format(product.price,product.taxes_id,order_line.tax_id))
-						pricelist_price = self.env['account.tax']._fix_tax_included_price(product.price, product.taxes_id, order_line.tax_id)
+						pricelist_price = product.price
 						_logger.warning("SALE ORDER apply_discounts() order_line --> PRICELIST_PRICE {0} ; ".format(pricelist_price))
 						order_line.pricelist_price = pricelist_price
 						_logger.warning("SALE ORDER apply_discounts() order_line --> product : {0} ; price_unit : {1} ; pricelist_price : {2} ; ".format(order_line.product_id.id,order_line.price_unit,order_line.pricelist_price))	
