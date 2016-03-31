@@ -54,7 +54,7 @@
 				<menuitem id="discount_menu" name="Descuentos" parent="tarification_menu" action="discount_action" groups="base.group_user"/>
 				<menuitem id="offer_menu" name="Ofertas" parent="tarification_menu" action="offer_action" groups="base.group_user"/>
 					<menuitem id="precondition_menu" name="Precondiciones" parent="offer_menu" action="offer_precondition_action" groups="base.group_user"/>
-					<menuitem id="gift_menu" name="Precondiciones" parent="offer_menu" action="offer_gift_action" groups="base.group_user"/>
+					<menuitem id="gift_menu" name="Regalos" parent="offer_menu" action="offer_gift_action" groups="base.group_user"/>
 			
 
 		<!-- VISTA DE ORDENES DE VENTA, PESTANAS DE OFERTAS Y DESCUENTOS-->
@@ -63,6 +63,10 @@
 		<field name="model">sale.order</field>
 		<field name="inherit_id" ref="sale.view_order_form"/>
 		<field name="arch" type="xml">
+			 <xpath expr="//page[@string='Order Lines']/field[@name='order_line']/tree[@string='Sales Order Lines']/field[@name='price_unit']" position="before">
+				<field name="pricelist_price" readonly="1"/>		
+			</xpath>
+
 			<xpath expr="//page[@string='Order Lines']" position='after'>
 				<page string='Ofertas'>
 	    			<field name="offers_lines">
