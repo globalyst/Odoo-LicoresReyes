@@ -198,6 +198,7 @@ class SaleOrder(models.Model):
 					'price_surcharge': item.price_surcharge,
 					'price_version_id': item.price_version_id,
 					'product_id': item.product_id,
+					'sequence': item.sequence,
 				}	
 				new_item = self.env['product.pricelist.item'].new(val)
 				new_version.items_id |= new_item
