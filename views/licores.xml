@@ -97,5 +97,17 @@
 		</field>
 	</record>
 	
+		<!-- VISTA DE ORDENES DE VENTA, PESTANAS DE OFERTAS Y DESCUENTOS-->
+	<record id="product_pricelist_form_view_with_duplicate" model="ir.ui.view">
+		<field name="name">product.pricelist.form</field>
+		<field name="model">product.pricelist</field>
+		<field name="inherit_id" ref="product.product_pricelist_view"/>
+		<field name="arch" type="xml">
+			 <xpath expr="//tree[@string='Pricelist Version']/field[@name='date_end']" position="after">
+				<button name="duplicate" type="object" string="Duplicar" class="oe_highlight" />
+			</xpath>
+		</field>
+	</record>
+	
    </data>
 </openerp>

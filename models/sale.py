@@ -167,3 +167,40 @@ class SaleOrder(models.Model):
 			
 			new_discount = self.env['discount.sale.order.line'].new(val)
 			self.discount_lines |= new_discount	
+			
+			
+	class product_pricelist(models.Model):
+		_inherit = 'product.pricelist.version'
+		
+		@api.multi
+		def duplicate(self):
+			_logger.warning("product_pricelist WOOOOOO Duplicate")
+			
+			name = " NUEVA VERSION"
+			val = {
+				'pricelist_id': self.pricelist_id,
+				'name': name,
+			}
+			new_version = self.env['product.pricelist.version'].new(val)
+			
+			for item in self.items_id:
+				val = {
+					'base': item.base,
+					'base_pricelist_id': item.base_pricelist_id,
+					'categ_id': item.categ_id,
+					'company_id': item.company_id,
+					'min_quantity': item.min_quantity,
+					'name': item.name,
+					'price_discount': item.price_discount,
+					'price_max_margin': item.price_max_margin,
+					'price_min_margin': item.price_min_margin,
+					'price_round': item.price_round,
+					'price_surcharge': item.price_surcharge,
+					'price_version_id': item.price_version_id,
+					'product_id': item.product_id,
+				}	
+				new_item = self.env['product.pricelist.item'].new(val)
+				new_version.items_id |= new_item
+				
+			self.pricelist_id.version_id |= new_version	
+			
