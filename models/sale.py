@@ -50,18 +50,20 @@ class SaleOrder(models.Model):
 			_logger.warning("SALE ORDER apply_discounts() discount_line --> product {0} ; is_active {1} ; percentage {2} ; fix_price {3} ;  ".format(discount_line.product_id,discount_line.is_active,discount_line.percentage,discount_line.fix_price))	
 			if discount_line.is_active:
 				for order_line in self.order_line:
-					if  discount_line.product_id.id == order_line.product_id.id:
-						product = order_line.product_id.with_context(
+					product = order_line.product_id.with_context(
 							lang=order_line.order_id.partner_id.lang,
 							partner=order_line.order_id.partner_id.id,
 							quantity=order_line.product_uom_qty,
 							date=order_line.order_id.date_order,
 							pricelist=order_line.order_id.pricelist_id.id,
 							uom=order_line.product_uom.id
-						)
-						pricelist_price = product.price
-						_logger.warning("SALE ORDER apply_discounts() order_line --> PRICELIST_PRICE {0} ; ".format(pricelist_price))
-						order_line.pricelist_price = pricelist_price
+					)
+					pricelist_price = product.price
+					_logger.warning("SALE ORDER apply_discounts() order_line --> PRICELIST_PRICE {0} ; ".format(pricelist_price))
+					order_line.pricelist_price = pricelist_price
+					
+					if  discount_line.product_id.id == order_line.product_id.id:
+						
 						_logger.warning("SALE ORDER apply_discounts() order_line --> product : {0} ; price_unit : {1} ; pricelist_price : {2} ; ".format(order_line.product_id.id,order_line.price_unit,order_line.pricelist_price))	
 						if discount_line.fix_price > 0.0:
 							order_line.price_unit = discount_line.fix_price
