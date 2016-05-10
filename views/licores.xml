@@ -60,6 +60,17 @@
 					{'search_default_pricelist_type_id':1}
 				</field>
 		</record>
+		
+					<!-- ACCIÓN PARA HERRAMIENTA DE IMPORTACIÓN  -->
+			<record id="model_data_menu_action" model="ir.actions.act_window">
+				<field name="name">ir.model.data</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">ir.model.data</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>	
+
+		</record>
+		
 		<menuitem id="main_licores_reyes" name="Licores Reyes" groups="base.group_user"/>
 			<menuitem id="tarification_menu" name="Tarificación" parent="main_licores_reyes" groups="base.group_user"/>
 				<menuitem id="discount_menu" name="Descuentos" parent="tarification_menu" action="discount_action" groups="base.group_user"/>
@@ -68,6 +79,7 @@
 					<menuitem id="gift_menu" name="Regalos" parent="offer_menu" action="offer_gift_action" groups="base.group_user"/>
 			<menuitem id="import_menu" name="Import Tools" parent="main_licores_reyes" groups="base.group_user"/>
 				<menuitem id="invoice_line_menu" name="Lineas de Factura" parent="import_menu" action="invoice_line_menu_action" groups="base.group_user"/>
+				<menuitem id="model_data_menu" name="ir.model.data" parent="import_menu" action="model_data_menu_action" groups="base.group_user"/>
 
 		<!-- VISTA DE ORDENES DE VENTA, PESTANAS DE OFERTAS Y DESCUENTOS-->
 		<record id="offer_sale_order_form_view" model="ir.ui.view">
