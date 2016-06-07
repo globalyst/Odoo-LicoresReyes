@@ -50,17 +50,28 @@
 			</record>
 		
 			<!-- ACCIÓN PARA HERRAMIENTA DE IMPORTACIÓN  -->
-			<record id="invoice_line_menu_action" model="ir.actions.act_window">
-				<field name="name">Lineas de Factura</field>
+			<record id="fiscal_position_account_menu_action" model="ir.actions.act_window">
+				<field name="name">Posiciones Fiscles - Cuentas</field>
 				<field name="type">ir.actions.act_window</field>
-				<field name="res_model">account.invoice.line</field>
+				<field name="res_model">account.fiscal.position.account</field>
 				<field name="view_type">form</field>
 				<field name="view_mode">tree,form</field>	
 				<field name="context">
 					{'search_default_pricelist_type_id':1}
 				</field>
-		</record>
+			</record>
 		
+			<record id="fiscal_position_tax_menu_action" model="ir.actions.act_window">
+				<field name="name">Posiciones Fiscles - Cuentas</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">account.fiscal.position.tax</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>	
+				<field name="context">
+					{'search_default_pricelist_type_id':1}
+				</field>
+			</record>
+			
 					<!-- ACCIÓN PARA HERRAMIENTA DE IMPORTACIÓN  -->
 			<record id="model_data_menu_action" model="ir.actions.act_window">
 				<field name="name">ir.model.data</field>
@@ -78,8 +89,9 @@
 					<menuitem id="precondition_menu" name="Precondiciones" parent="offer_menu" action="offer_precondition_action" groups="base.group_user"/>
 					<menuitem id="gift_menu" name="Regalos" parent="offer_menu" action="offer_gift_action" groups="base.group_user"/>
 			<menuitem id="import_menu" name="Import Tools" parent="main_licores_reyes" groups="base.group_user"/>
-				<menuitem id="invoice_line_menu" name="Lineas de Factura" parent="import_menu" action="invoice_line_menu_action" groups="base.group_user"/>
-				<menuitem id="model_data_menu" name="ir.model.data" parent="import_menu" action="model_data_menu_action" groups="base.group_user"/>
+				<menuitem id="model_data_menu" name="IDs Externos" parent="import_menu" action="model_data_menu_action" groups="base.group_user"/>
+				<menuitem id="fiscal_position_account_menu" name="Fiscal Position - Cuentas" parent="import_menu" action="fiscal_position_account_menu_action" groups="base.group_user"/>
+				<menuitem id="fiscal_position_tax_menu" name="Fiscal Position - Impuestos" parent="import_menu" action="fiscal_position_tax_menu_action" groups="base.group_user"/>
 
 		<!-- VISTA DE ORDENES DE VENTA, PESTANAS DE OFERTAS Y DESCUENTOS-->
 		<record id="offer_sale_order_form_view" model="ir.ui.view">
