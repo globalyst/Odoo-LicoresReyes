@@ -83,6 +83,16 @@
 				</field>
 			</record>
 			
+			<record id="bank_account_menu_action" model="ir.actions.act_window">
+				<field name="name">Cuentas bancarias</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">res.partner.bank</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>	
+				<field name="context">
+					{'search_default_pricelist_type_id':1}
+				</field>
+			</record>
 					<!-- ACCIÓN PARA HERRAMIENTA DE IMPORTACIÓN  -->
 			<record id="model_data_menu_action" model="ir.actions.act_window">
 				<field name="name">ir.model.data</field>
@@ -104,6 +114,7 @@
 				<menuitem id="fiscal_position_account_menu" name="Fiscal Position - Cuentas" parent="import_menu" action="fiscal_position_account_menu_action" groups="base.group_user"/>
 				<menuitem id="fiscal_position_tax_menu" name="Fiscal Position - Impuestos" parent="import_menu" action="fiscal_position_tax_menu_action" groups="base.group_user"/>
 				<menuitem id="invoice_line_menu" name="Lineas de Factura" parent="import_menu" action="invoice_line_menu_action" groups="base.group_user"/>
+				<menuitem id="bank_account_menu" name="Cuentas bancarias" parent="import_menu" action="bank_account_menu_action" groups="base.group_user"/>
 		<!-- VISTA DE ORDENES DE VENTA, PESTANAS DE OFERTAS Y DESCUENTOS-->
 		<record id="offer_sale_order_form_view" model="ir.ui.view">
 		<field name="name">sale.order.form</field>
