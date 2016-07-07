@@ -5,15 +5,15 @@ _logger = logging.getLogger(__name__)
 
 class Offer(models.Model):
 	_name = 'offer'
-	name = fields.Char(string='Oferta')
-	is_active = fields.Boolean(default=True,string='Activo')
-	supplier_pay = fields.Boolean(default=True,string='A cargo de proveedor')
-	start_date = fields.Date(default=fields.Date.today,string='Fecha de Inicio')
-	end_date = fields.Date(string='Fecha de Fin')
-	qty = fields.Integer(string='Cantidad')
-	max_accumulations = fields.Integer(string='Maximo de acumulaciones')
-	precondition_id = fields.One2many('offer.precondition','offer_id', string="Precondiciones")
-	gift_id = fields.One2many('offer.gift','offer_id', string="Regalos")
+	name = fields.Char(string='Offer')
+	is_active = fields.Boolean(default=True,string='Active')
+	supplier_pay = fields.Boolean(default=True,string='In charge of supplier')
+	start_date = fields.Date(default=fields.Date.today,string='Start date')
+	end_date = fields.Date(string='End date')
+	qty = fields.Integer(string='Quantity')
+	max_accumulations = fields.Integer(string='Max accumulations')
+	precondition_id = fields.One2many('offer.precondition','offer_id', string="Preconditions")
+	gift_id = fields.One2many('offer.gift','offer_id', string="Gifts")
 	
 	@api.model
 	def getActiveOffers(self):
@@ -73,31 +73,30 @@ class Offer(models.Model):
 class Precondition(models.Model):
 	_name = 'offer.precondition'
 	
-	name = fields.Char(string='Nombre')
-	qty_min = fields.Integer(string='Cantidad minima')
-	price_min = fields.Float(digits=(6, 2), help="Precio minimo")
+	name = fields.Char(string='Name')
+	qty_min = fields.Integer(string='Min quantity')
+	price_min = fields.Float(digits=(6, 2), help="Min price")
 
-	preconditionline_id = fields.One2many('offer.precondition.line','precondition_id', string="Lineas de precondicion")
-	offer_id = fields.Many2one('offer',ondelete='cascade', string="Oferta", required=True)
+	preconditionline_id = fields.One2many('offer.precondition.line','precondition_id', string="Precondition lines")
+	offer_id = fields.Many2one('offer',ondelete='cascade', string="Offer", required=True)
 	
 class PreconditionLine(models.Model):
 	_name = 'offer.precondition.line'
-	paid_product = fields.Many2one('product.product',ondelete='set null', string="Producto a pagar", index=True) 
-	qty_min = fields.Integer(string='Cantidad minima')
-	price_min = fields.Float(digits=(6, 2), string="Precio minimo")
-	precondition_id = fields.Many2one('offer.precondition',ondelete='cascade', string="Precondicion", required=True)
+	paid_product = fields.Many2one('product.product',ondelete='set null', string="Product to pay", index=True) 
+	qty_min = fields.Integer(string='Min quantity')
+	price_min = fields.Float(digits=(6, 2), string="Min price")
+	precondition_id = fields.Many2one('offer.precondition',ondelete='cascade', string="Precondition", required=True)
 		
 
 class Gift(models.Model):
 	_name = 'offer.gift'
-	name = fields.Char(string='Regalo')
-	giftline_id = fields.One2many('offer.gift.line','gift_id', string="Lineas de regalos")
-	offer_id = fields.Many2one('offer',ondelete='cascade', string="Oferta", required=True)
+	name = fields.Char(string='Name')
+	giftline_id = fields.One2many('offer.gift.line','gift_id', string="Gift lines")
+	offer_id = fields.Many2one('offer',ondelete='cascade', string="Offer", required=True)
 	
 class GiftLine(models.Model):
 	_name = 'offer.gift.line'
-	free_product = fields.Many2one('product.product',ondelete='set null', string="Producto a regalar", index=True)
-	qty = fields.Integer(string='Cantidad a regalar')
-	fix_price = fields.Float(digits=(6, 2), string="Precio fijo")
+	free_product = fields.Many2one('product.product',ondelete='set null', string="Free product", index=True)
+	qty = fields.Integer(string='Quantity')
+	fix_price = fields.Float(digits=(6, 2), string="Fix price")
 	gift_id = fields.Many2one('offer.gift',ondelete='cascade', string="Regalo", required=True)
-	

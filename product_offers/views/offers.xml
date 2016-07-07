@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
+		
+		<!-- ACCIÓN PARA EL BOTÓN DE OFERTAS -->
+		<record id="offer_action" model="ir.actions.act_window">
+				<field name="name">Ofertas</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">offer</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>	
+
+		</record>
+	  <menuitem id="offer_menu" name="Ofertas" parent="base.menu_base_config" action="offer_action" groups="base.group_user" />
 	<!-- OFERTAS -->
+	
 		<!-- VISTA DE FORMULARIO -->
 		<record model="ir.ui.view" id="offer_form_view">
 		    <field eval="1" name="sequence"/>
@@ -40,7 +52,7 @@
 									<tree string="Linea"> 
 										<field name="name"/>
 										<field name="giftline_id"/>
-										<field name="offer_id"/>
+										<field name="offer_id"/>a
 									</tree>
 								</field>
 							</page>
@@ -197,5 +209,27 @@
             </field>
         </record>
 		
+		
+		
+		<!-- VISTA DE ORDENES DE VENTA, PESTANAS DE OFERTAS -->
+		<record id="offer_sale_order_form_view" model="ir.ui.view">
+		<field name="name">sale.order.form</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//page[@string='Order Lines']" position='after'>
+				<page string='Ofertas'>
+	    			<field name="offers_lines">
+						<tree string="Lineas de Ofertas" editable="bottom"> 
+							<field name="offer_ref"/>
+							<field name="accumulations"/>
+							<field name="is_active"/>
+						</tree>
+					</field>
+					<button name="apply_offers" type="object" string="Aplicar Ofertas" class="oe_highlight" />
+				</page>
+			</xpath>
+		</field>
+	</record>
    </data>
 </openerp>

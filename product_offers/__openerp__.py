@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "LicoresReyes",
+    'name': "product_offers",
 
     'summary': """
-        Este módulo pretende resolver los problemas de tarificación de LicoresReyes""",
+        Módulo que permmite crear ofertas en base a unos requerimientos, que en caso de cumplirse se aplicarán una serie de descuentos, regalos, etc.""",
 
     'description': """
-        Este módulo pretende resolver los problemas de tarificación de LicoresReyes, en primer lugar vamos a añadir una vista que nos permita importar un fichero con los elementos de tarifa.
+		Módulo que permmite crear ofertas en base a unos requerimientos, que en caso de cumplirse se aplicarán una serie de descuentos, regalos, etc.
     """,
 
     'author': "Álvaro Parra Caro",
@@ -19,25 +19,21 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': [
+     'depends': [
 			'base',	
 			'sale',
 			'product',
-	],
+	 ],
 
     # always loaded
     'data': [
-        "templates.xml",
-		"views/elementos_de_tarifa.xml",
-		"views/ofertas.xml",
-		"views/descuentos.xml",
-		"views/licores.xml",
+        # 'security/ir.model.access.csv',
+        'templates.xml',
+		"views/offers.xml",
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo.xml',
     ],
-    'installable': True,
-    'auto_install': False,
-    'application': True,
+
 }

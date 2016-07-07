@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+	
+	
+		<!-- ACCIÓN PARA EL BOTÓN DE OFERTAS -->
+		<record id="discount_template_action" model="ir.actions.act_window">
+				<field name="name">Plantillas de descuento</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">discount.template</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>	
+
+		</record>
+	  <menuitem id="discount_template_menu" name="Plantillas de descuento" parent="base.menu_base_config" action="discount_template_action" groups="base.group_user" />
+	  
+	  
+	  <!-- ACCIÓN PARA EL BOTÓN DE OFERTAS -->
+	  <record id="discount_action" model="ir.actions.act_window">
+				<field name="name">Descuentos</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">discount</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>	
+
+		</record>
+	  <menuitem id="discount_menu" name="Descuentos" parent="discount_template_menu" action="discount_action" groups="base.group_user" />
+	  
+
+	<!-- DESCUENTOS EN PARTNERS -->
+
+	<record id="discount_partner_form_view" model="ir.ui.view">
+		<field name="name">res.partner.form</field>
+		<field name="model">res.partner</field>
+		<field name="inherit_id" ref="base.view_partner_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//page[@name='sales_purchases']" position='after'>
+				<page string='Descuentos'>
+	    			<field name="templates">
+						<tree string="Descuentos" editable="bottom"> 
+							<field name="name"/>
+							<field name="is_active"/>
+							<field name="start_date"/>
+							<field name="end_date"/>
+							<field name="discount_lines"/>
+						</tree>
+					</field>
+				</page>
+			</xpath>
+			<xpath expr="//field[@name='category_id']" position='after'>
+				<field name="is_group" /> <label for="is_group" string="Is a Group?"/>
+				<field name="partner_group" domain="[('is_group', '=', True)]"/>
+			</xpath>
+		</field>
+	</record>
+
+
+	<!-- DESCUENTOS -->
+	
+		<!-- VISTA DE ÁRBOL -->
+		<record model="ir.ui.view" id="discount_tree_view">
+		    <field name="sequence" eval="0"/>
+            <field name="name">discount.tree</field>
+            <field name="model">discount</field>
+            <field name="arch" type="xml">
+                <tree string="Descuentos">
+                    <field name="product_id"/>
+					<field name="is_active"/>
+					<field name="percentage"/>
+					<field name="fix_price"/>
+					<field name="fix_discount"/>
+				    <field name="template_ref"/>
+                </tree>
+            </field>
+        </record>
+		
+	<!-- PLANTILLAS DE DESCUENTOS -->
+	
+		<!-- VISTA DE ÁRBOL -->
+		<record model="ir.ui.view" id="discount_template_tree_view">
+		    <field name="sequence" eval="0"/>
+            <field name="name">discount.template.tree</field>
+            <field name="model">discount.template</field>
+            <field name="arch" type="xml">
+                <tree string="Plantillas de Descuentos">
+                    <field name="name"/>
+					<field name="is_active"/>
+					<field name="start_date"/>
+					<field name="end_date"/>
+				    <field name="partner_ref"/>
+					<field name="discount_lines"/>
+                </tree>
+            </field>
+        </record>
+
+		<!-- VISTA DE ORDENES DE VENTA, PESTANAS DE  DESCUENTOS-->
+		<record id="discount_sale_order_form_view" model="ir.ui.view">
+		<field name="name">sale.order.form</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="arch" type="xml">
+			 <xpath expr="//page[@string='Order Lines']/field[@name='order_line']/tree[@string='Sales Order Lines']/field[@name='price_unit']" position="before">
+				<field name="pricelist_price" readonly="1"/>		
+			</xpath>
+
+			<xpath expr="//page[@string='Order Lines']" position='after'>
+				<page string='Descuentos'>
+	    			<field name="discount_lines">
+						<tree string="Lineas de Descuentos" editable="bottom"> 
+							<field name="product_id"/>
+							<field name="is_active"/>
+							<field name="percentage"/>
+							<field name="fix_price"/>	
+							<field name="fix_discount"/>							
+						</tree>
+					</field>
+					<button name="apply_discounts" type="object" string="Aplicar Descuentos" class="oe_highlight" />
+				</page>
+			</xpath>
+		</field>
+	</record>
+   </data>
+</openerp>
