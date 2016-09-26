@@ -1,0 +1,241 @@
+<openerp>"
+    <data>
+		
+	<!-- ACCION PARA EL BOTON DE OFERTAS -->
+		<record id="offer_action" model="ir.actions.act_window">
+				<field name="name">Offers</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">offer</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>	
+
+		</record>
+	
+	<!-- OBJETO DE MENÚ PARA OFERTAS -->
+		<menuitem id="offer_menu" name="Offers" parent="base.menu_sales" sequence="500" action="offer_action" groups="base.group_user" />
+	
+	
+	<!-- OFERTAS -->
+	
+		<!-- VISTA DE FORMULARIO -->
+		<record model="ir.ui.view" id="offer_form_view">
+		    <field eval="1" name="sequence"/>
+			<field name="name">offer.form</field>
+			<field name="model">offer</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Offer form">
+					<sheet>
+						<group>
+							<field name="name"/>
+						</group>
+						<group>
+						    <field name="is_active"/>
+							<field name="start_date"/>
+							<field name="end_date"/>
+						</group>
+						<group>
+							<field name="supplier_pay"/>
+							<field name="max_accumulations"/>
+						</group>
+						<notebook>
+							<page string="New precondition">
+								<field name="precondition_id">
+									<tree string="Line"> 
+										<field name="name"/>
+										<field name="qty_min"/>
+										<field name="price_min"/>
+										<field name="preconditionline_id"/>
+										<field name="offer_id"/>										
+									</tree>
+								</field>
+							</page>
+							<page string="New Gift">
+								<field name="gift_id">
+									<tree string="Line"> 
+										<field name="name"/>
+										<field name="giftline_id"/>
+										<field name="offer_id"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+	
+		<!-- VISTA DE ARBOL -->
+		<record model="ir.ui.view" id="offer_tree_view">
+		    <field name="sequence" eval="0"/>
+            <field name="name">offer.tree</field>
+            <field name="model">offer</field>
+            <field name="arch" type="xml">
+                <tree string="Preconditions">
+                    <field name="name"/>
+					<field name="is_active"/>
+					<field name="supplier_pay"/>
+					<field name="max_accumulations"/>
+				    <field name="start_date"/>
+					<field name="end_date"/>
+                </tree>
+            </field>
+        </record>
+		
+	<!-- PRECONDICIONES -->
+	
+		<!-- VISTA DE FORMULARIO -->
+		<record model="ir.ui.view" id="offer_precondition_form_view">
+		    <field eval="1" name="sequence"/>
+			<field name="name">offer.precondition.form</field>
+			<field name="model">offer.precondition</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Precondition form">
+					<sheet>
+						<group>
+							<field name="name"/>
+						</group>
+						<group>
+							<field name="qty_min"/>
+							<field name="price_min"/>
+						</group>
+						<notebook>
+							<page string="New precondition line">
+								<field name="preconditionline_id">
+									<tree string="Line"> 
+										<field name="paid_product"/>
+										<field name="qty_min"/>
+										<field name="price_min"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<!-- VISTA DE ARBOL -->
+		<record model="ir.ui.view" id="offer_precondition_tree_view">
+		    <field name="sequence" eval="0"/>
+            <field name="name">offer.precondition.tree</field>
+            <field name="model">offer.precondition</field>
+            <field name="arch" type="xml">
+                <tree string="Preconditions">
+                    <field name="name"/>
+					<field name="qty_min"/>
+					<field name="price_min"/>
+				    <field name="preconditionline_id"/>
+                </tree>
+            </field>
+        </record>
+		
+		
+    <!-- LINEAS DE PRECONDICION -->
+	
+		<!-- VISTA DE FORMULARIO -->
+		<record model="ir.ui.view" id="offer_preconditionline_form">
+            <field name="name">offer.precondition.line.form</field>
+            <field name="model">offer.precondition.line</field>
+            <field name="arch" type="xml">
+                <form string="Precondition line">
+                    <sheet>
+                        <group>
+                            <field name="paid_product"/>
+                            <field name="qty_min"/>
+							<field name="price_min"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+   
+    <!-- REGALOS -->
+	
+		<!-- VISTA DE FORMULARIO -->
+		<record model="ir.ui.view" id="offer_gift_form_view">
+		    <field eval="1" name="sequence"/>
+			<field name="name">offer.gift.form</field>
+			<field name="model">offer.gift</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Gift form">
+					<sheet>
+						<group>
+							<field name="name"/>
+						</group>
+						<notebook>
+							<page string="New Gift line">
+								<field name="giftline_id">
+									<tree string="Linea"> 
+										<field name="free_product"/>
+										<field name="qty"/>
+										<field name="fix_price"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<!-- VISTA DE ARBOL -->
+		<record model="ir.ui.view" id="offer_gift_tree_view">
+		    <field name="sequence" eval="0"/>
+            <field name="name">offer.gift.tree</field>
+            <field name="model">offer.gift</field>
+            <field name="arch" type="xml">
+                <tree string="Gift">
+                    <field name="name"/>
+				    <field name="giftline_id"/>
+                </tree>
+            </field>
+        </record>
+	
+		
+   <!-- LINEAS DE REGALOS -->
+  		<!-- VISTA DE FORMULARIO -->
+		<record model="ir.ui.view" id="offer_giftline_form">
+            <field name="name">offer.gift.line.form</field>
+            <field name="model">offer.gift.line</field>
+            <field name="arch" type="xml">
+                <form string="Precondition line">
+                    <sheet>
+                        <group>
+                            <field name="free_product"/>
+                            <field name="qty"/>
+							<field name="fix_price"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+		
+		
+		
+		<!-- VISTA DE ORDENES DE VENTA, PESTANAS DE OFERTAS -->
+		<record id="offer_sale_order_form_view" model="ir.ui.view">
+		<field name="name">sale.order.form</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//page[2]" position="after">
+				<page string='Offers'>
+	    			<field name="offers_lines">
+						<tree string="Offer lines" editable="bottom"> 
+							<field name="offer_ref"/>
+							<field name="accumulations"/>
+							<field name="is_active"/>
+						</tree>
+					</field>
+					<button name="apply_offers" type="object" string="Apply offers" class="oe_highlight" />
+					<button name="remove_offers" type="object" string="Remove offers" class="oe_highlight" />
+				</page>
+			</xpath>
+		</field>
+		</record>
+	
+   </data>
+</openerp>

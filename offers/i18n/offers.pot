@@ -1,0 +1,326 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* offers
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c-20160831\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-23 11:44+0000\n"
+"PO-Revision-Date: 2016-09-23 11:44+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_is_active
+#: model:ir.model.fields,field_description:offers.field_offer_sale_order_line_is_active
+msgid "Active"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_sale_order_line_accumulations
+msgid "Acummulations"
+msgstr ""
+
+#. module: offers
+#: model:ir.ui.view,arch_db:offers.offer_sale_order_form_view
+msgid "Apply offers"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_create_uid
+#: model:ir.model.fields,field_description:offers.field_offer_gift_create_uid
+#: model:ir.model.fields,field_description:offers.field_offer_gift_line_create_uid
+#: model:ir.model.fields,field_description:offers.field_offer_precondition_create_uid
+#: model:ir.model.fields,field_description:offers.field_offer_precondition_line_create_uid
+#: model:ir.model.fields,field_description:offers.field_offer_sale_order_line_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_create_date
+#: model:ir.model.fields,field_description:offers.field_offer_gift_create_date
+#: model:ir.model.fields,field_description:offers.field_offer_gift_line_create_date
+#: model:ir.model.fields,field_description:offers.field_offer_precondition_create_date
+#: model:ir.model.fields,field_description:offers.field_offer_precondition_line_create_date
+#: model:ir.model.fields,field_description:offers.field_offer_sale_order_line_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_display_name
+#: model:ir.model.fields,field_description:offers.field_offer_gift_display_name
+#: model:ir.model.fields,field_description:offers.field_offer_gift_line_display_name
+#: model:ir.model.fields,field_description:offers.field_offer_precondition_display_name
+#: model:ir.model.fields,field_description:offers.field_offer_precondition_line_display_name
+#: model:ir.model.fields,field_description:offers.field_offer_sale_order_line_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_end_date
+msgid "End date"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_gift_line_fix_price
+msgid "Fix price"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_gift_line_free_product
+msgid "Free product"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_gift_line_gift_id
+#: model:ir.ui.view,arch_db:offers.offer_gift_tree_view
+msgid "Gift"
+msgstr ""
+
+#. module: offers
+#: model:ir.ui.view,arch_db:offers.offer_gift_form_view
+msgid "Gift form"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_gift_giftline_id
+msgid "Gift lines"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_gift_id
+msgid "Gifts"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_gift_id_5063
+#: model:ir.model.fields,field_description:offers.field_offer_gift_line_id
+#: model:ir.model.fields,field_description:offers.field_offer_id
+#: model:ir.model.fields,field_description:offers.field_offer_precondition_id_5042
+#: model:ir.model.fields,field_description:offers.field_offer_precondition_line_id
+#: model:ir.model.fields,field_description:offers.field_offer_sale_order_line_id
+msgid "ID"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_supplier_pay
+msgid "In charge of supplier"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_sale_order_line_is_offer
+msgid "Is a Offer"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer___last_update
+#: model:ir.model.fields,field_description:offers.field_offer_gift___last_update
+#: model:ir.model.fields,field_description:offers.field_offer_gift_line___last_update
+#: model:ir.model.fields,field_description:offers.field_offer_precondition___last_update
+#: model:ir.model.fields,field_description:offers.field_offer_precondition_line___last_update
+#: model:ir.model.fields,field_description:offers.field_offer_sale_order_line___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_gift_line_write_uid
+#: model:ir.model.fields,field_description:offers.field_offer_gift_write_uid
+#: model:ir.model.fields,field_description:offers.field_offer_precondition_line_write_uid
+#: model:ir.model.fields,field_description:offers.field_offer_precondition_write_uid
+#: model:ir.model.fields,field_description:offers.field_offer_sale_order_line_write_uid
+#: model:ir.model.fields,field_description:offers.field_offer_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_gift_line_write_date
+#: model:ir.model.fields,field_description:offers.field_offer_gift_write_date
+#: model:ir.model.fields,field_description:offers.field_offer_precondition_line_write_date
+#: model:ir.model.fields,field_description:offers.field_offer_precondition_write_date
+#: model:ir.model.fields,field_description:offers.field_offer_sale_order_line_write_date
+#: model:ir.model.fields,field_description:offers.field_offer_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: offers
+#: model:ir.ui.view,arch_db:offers.offer_form_view
+#: model:ir.ui.view,arch_db:offers.offer_precondition_form_view
+msgid "Line"
+msgstr ""
+
+#. module: offers
+#: model:ir.ui.view,arch_db:offers.offer_gift_form_view
+msgid "Linea"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_max_accumulations
+msgid "Max accumulations"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_precondition_line_price_min
+msgid "Min price"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_precondition_line_qty_min
+#: model:ir.model.fields,field_description:offers.field_offer_precondition_qty_min
+msgid "Min quantity"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_gift_name
+#: model:ir.model.fields,field_description:offers.field_offer_name
+#: model:ir.model.fields,field_description:offers.field_offer_precondition_name
+msgid "Name"
+msgstr ""
+
+#. module: offers
+#: model:ir.ui.view,arch_db:offers.offer_form_view
+msgid "New Gift"
+msgstr ""
+
+#. module: offers
+#: model:ir.ui.view,arch_db:offers.offer_gift_form_view
+msgid "New Gift line"
+msgstr ""
+
+#. module: offers
+#: model:ir.ui.view,arch_db:offers.offer_form_view
+msgid "New precondition"
+msgstr ""
+
+#. module: offers
+#: model:ir.ui.view,arch_db:offers.offer_precondition_form_view
+msgid "New precondition line"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_gift_offer_id
+#: model:ir.model.fields,field_description:offers.field_offer_precondition_offer_id
+#: model:ir.model.fields,field_description:offers.field_offer_sale_order_line_offer_ref
+msgid "Offer"
+msgstr ""
+
+#. module: offers
+#: model:ir.ui.view,arch_db:offers.offer_form_view
+msgid "Offer form"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_sale_order_offers_lines
+#: model:ir.ui.view,arch_db:offers.offer_sale_order_form_view
+msgid "Offer lines"
+msgstr ""
+
+#. module: offers
+#: model:ir.actions.act_window,name:offers.offer_action
+#: model:ir.ui.menu,name:offers.offer_menu
+#: model:ir.ui.view,arch_db:offers.offer_sale_order_form_view
+msgid "Offers"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_precondition_line_precondition_id
+msgid "Precondition"
+msgstr ""
+
+#. module: offers
+#: model:ir.ui.view,arch_db:offers.offer_precondition_form_view
+msgid "Precondition form"
+msgstr ""
+
+#. module: offers
+#: model:ir.ui.view,arch_db:offers.offer_giftline_form
+#: model:ir.ui.view,arch_db:offers.offer_preconditionline_form
+msgid "Precondition line"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_precondition_preconditionline_id
+msgid "Precondition lines"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_precondition_id
+#: model:ir.ui.view,arch_db:offers.offer_precondition_tree_view
+#: model:ir.ui.view,arch_db:offers.offer_tree_view
+msgid "Preconditions"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_precondition_price_min
+msgid "Price min"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_precondition_line_paid_product
+msgid "Product to pay"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_gift_line_qty
+msgid "Quantity"
+msgstr ""
+
+#. module: offers
+#: model:ir.ui.view,arch_db:offers.offer_sale_order_form_view
+msgid "Remove offers"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_sale_order_line_sale_order_ref
+msgid "Sale Order"
+msgstr ""
+
+#. module: offers
+#: model:ir.model,name:offers.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: offers
+#: model:ir.model,name:offers.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
+
+#. module: offers
+#: model:ir.model.fields,field_description:offers.field_offer_start_date
+msgid "Start date"
+msgstr ""
+
+#. module: offers
+#: model:ir.model,name:offers.model_offer
+msgid "offer"
+msgstr ""
+
+#. module: offers
+#: model:ir.model,name:offers.model_offer_gift
+msgid "offer.gift"
+msgstr ""
+
+#. module: offers
+#: model:ir.model,name:offers.model_offer_gift_line
+msgid "offer.gift.line"
+msgstr ""
+
+#. module: offers
+#: model:ir.model,name:offers.model_offer_precondition
+msgid "offer.precondition"
+msgstr ""
+
+#. module: offers
+#: model:ir.model,name:offers.model_offer_precondition_line
+msgid "offer.precondition.line"
+msgstr ""
+
+#. module: offers
+#: model:ir.model,name:offers.model_offer_sale_order_line
+msgid "offer.sale.order.line"
+msgstr ""
+

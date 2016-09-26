@@ -1,0 +1,173 @@
+<openerp>
+    <data>
+		<record id="productoffer-0" model="product.product">
+            <field name="name">Refresco de Cola</field> 
+            <field name="list_price">2.4</field> 
+        </record> 
+		<record id="productoffer-1" model="product.product">
+            <field name="name">Refresco de Limon</field> 
+            <field name="list_price">2.6</field> 
+        </record> 
+		<record id="productoffer-2" model="product.product">
+            <field name="name">Refresco de Naranja</field> 
+            <field name="list_price">2.6</field> 
+        </record> 
+		
+		<record id="productoffer-3" model="product.product">
+            <field name="name">Balon de Playa</field> 
+            <field name="list_price">0.5</field> 
+        </record> 
+		
+		<!-- EXAMPLE OFFER 1 -->
+		<record id="offer-0" model="offer">
+            <field name="name">Por la compra de 3 refrescos, de cualquier sabor --> Regalo de un balón de Playa </field> 
+			<field name="precondition_id">prec-0</field> 
+			<field name="gift_id">gift-0</field> 
+        </record> 
+		
+		<record id="prec-0" model="offer.precondition">
+            <field name="name">Por la compra de 3 refrescos, de cualquier sabor </field> 
+            <field name="qty_min">3</field> 
+			<field name="price_min">1.8</field> 
+			<field name="offer_id" ref="offer-0" /> 
+        </record> 
+
+		<record id="precline-0" model="offer.precondition.line">
+            <field name="paid_product" ref="productoffer-0" /> 
+			<field name="precondition_id" ref="prec-0" />
+        </record> 
+			
+		<record id="precline-1" model="offer.precondition.line">
+            <field name="paid_product" ref="productoffer-1" /> 
+			<field name="precondition_id" ref="prec-0" />
+        </record> 
+		
+		<record id="precline-2" model="offer.precondition.line">
+            <field name="paid_product" ref="productoffer-2"/> 
+			<field name="precondition_id" ref="prec-0"/>
+        </record> 
+
+		<record id="gift-0" model="offer.gift">
+            <field name="name">Regalo de un balón de Playa </field> 
+			<field name="offer_id" ref="offer-0"/> 
+        </record> 
+		
+		<record id="giftline-0" model="offer.gift.line">
+            <field name="free_product" ref="productoffer-3" /> 
+			<field name="qty">1</field> 
+			<field name="gift_id" ref="gift-0"/>
+        </record> 
+		
+		<!-- EXAMPLE OFFER 2 -->
+		<record id="offer-1" model="offer">
+            <field name="name">Por la compra de 3 refrescos, del mismo sabor --> Regalo de un balón de Playa </field> 
+			<field name="precondition_id">prec-1</field> 
+			<field name="gift_id">gift-1</field> 
+        </record> 
+		
+		<record id="prec-1" model="offer.precondition">
+            <field name="name">Por la compra de 3 refrescos,  del mismo sabor  </field> 
+			<field name="price_min">1.8</field> 
+			<field name="offer_id" ref="offer-1" /> 
+        </record> 
+
+		<record id="precline-3" model="offer.precondition.line">
+            <field name="paid_product" ref="productoffer-0" /> 
+			<field name="qty_min">3</field> 
+			<field name="precondition_id" ref="prec-1" />
+        </record> 
+			
+		<record id="precline-4" model="offer.precondition.line">
+            <field name="paid_product" ref="productoffer-1" /> 
+			<field name="qty_min">3</field> 
+			<field name="precondition_id" ref="prec-1" />
+        </record> 
+		
+		<record id="precline-5" model="offer.precondition.line">
+            <field name="paid_product" ref="productoffer-2"/> 
+			<field name="qty_min">3</field> 
+			<field name="precondition_id" ref="prec-1"/>
+        </record> 
+
+		<record id="gift-1" model="offer.gift">
+            <field name="name">Regalo de un balón de Playa </field> 
+			<field name="offer_id" ref="offer-1"/> 
+        </record> 
+		
+		<record id="giftline-1" model="offer.gift.line">
+            <field name="free_product" ref="productoffer-3" /> 
+			<field name="qty">1</field> 
+			<field name="gift_id" ref="gift-1"/>
+        </record> 
+		
+		<!-- EXAMPLE OFFER 3 -->
+		<record id="offer-2" model="offer">
+            <field name="name">3x2 En refrescos de cola </field> 
+			<field name="precondition_id">prec-2</field> 
+			<field name="gift_id">gift-2</field> 
+        </record> 
+		
+		<record id="prec-2" model="offer.precondition">
+            <field name="name"> Por la compra de 2 refrescos de cola  </field> 
+			<field name="price_min">1.8</field> 
+			<field name="offer_id" ref="offer-2" /> 
+        </record> 
+
+		<record id="precline-6" model="offer.precondition.line">
+            <field name="paid_product" ref="productoffer-2" /> 
+			<field name="qty_min">2</field> 
+			<field name="precondition_id" ref="prec-2" />
+        </record> 
+			
+		<record id="gift-2" model="offer.gift">
+            <field name="name">Refresco de regalo </field> 
+			<field name="offer_id" ref="offer-2"/> 
+        </record> 
+		
+		<record id="giftline-2" model="offer.gift.line">
+            <field name="free_product" ref="productoffer-0" /> 
+			<field name="qty">1</field> 
+			<field name="gift_id" ref="gift-2"/>
+        </record> 
+		
+		<!-- EXAMPLE OFFER 4 -->
+		<record id="offer-3" model="offer">
+            <field name="name">Por la compra de 10 refrescos de naranja, el precio del refresco a 1.40 </field> 
+			<field name="precondition_id">prec-3</field> 
+			<field name="gift_id">gift-3</field>
+			<field name="max_accumulations">20</field> 
+        </record> 
+		
+		<record id="prec-3" model="offer.precondition">
+            <field name="name"> Por la compra de 10 refrescos de naranja </field> 
+			<field name="offer_id" ref="offer-3" /> 
+        </record> 
+
+		<record id="precline-7" model="offer.precondition.line">
+            <field name="paid_product" ref="productoffer-2" /> 
+			<field name="qty_min">10</field> 
+			<field name="precondition_id" ref="prec-3" />
+        </record> 
+			
+		<record id="gift-3" model="offer.gift">
+            <field name="name"> todos los refrescos a 1.40 (maximo 10) </field> 
+			<field name="offer_id" ref="offer-3"/> 
+        </record> 
+		
+		<record id="giftline-3" model="offer.gift.line">
+            <field name="free_product" ref="productoffer-0" /> 
+			<field name="fix_price">1.4</field> 
+			<field name="gift_id" ref="gift-3"/>
+		 </record> 
+		<record id="giftline-3" model="offer.gift.line">
+            <field name="free_product" ref="productoffer-1" /> 
+			<field name="fix_price">1.4</field> 
+			<field name="gift_id" ref="gift-3"/>
+		 </record> 
+		<record id="giftline-3" model="offer.gift.line">
+            <field name="free_product" ref="productoffer-2" /> 
+			<field name="fix_price">1.4</field> 
+			<field name="gift_id" ref="gift-3"/>
+        </record> 
+    </data>
+</openerp>

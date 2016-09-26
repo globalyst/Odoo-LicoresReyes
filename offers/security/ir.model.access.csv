@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_offers_offer,offers.offer,model_offer,base.group_sale_salesman,1,0,0,0
+access_offers_offer_manager,offers.offer,model_offer,base.group_sale_manager,1,1,1,1
+access_offers_offer_precondition,offers.offer.precondition,model_offer_precondition,base.group_sale_salesman,1,0,0,0
+access_offers_offer_precondition_manager,offers.offer.precondition,model_offer_precondition,base.group_sale_manager,1,1,1,1
+access_offers_offer_precondition_line,offers.offer.precondition.line,model_offer_precondition_line,base.group_sale_salesman,1,0,0,0
+access_offers_offer_precondition_line_manager,offers.offer.precondition.line,model_offer_precondition_line,base.group_sale_manager,1,1,1,1
+access_offers_offer_gift,offers.offer.gift,model_offer_gift,base.group_sale_salesman,1,0,0,0
+access_offers_offer_gift_manager,offers.offer.gift,model_offer_gift,base.group_sale_manager,1,1,1,1
+access_offers_offer_gift_line,offers.offer.gift,model_offer_gift_line,base.group_sale_salesman,1,0,0,0
+access_offers_offer_gift_line_manager,offers.offer.gift,model_offer_gift_line,base.group_sale_manager,1,1,1,1
+access_offers_sale_order_line,offers.offer.sale.order.line,model_offer_sale_order_line,base.group_sale_salesman,1,1,1,1
+access_offers_sale_order_line_manager,offers.offer.sale.order.line,model_offer_sale_order_line,base.group_sale_manager,1,1,1,1
