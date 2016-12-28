@@ -10,7 +10,6 @@ class Format(models.Model):
 	
 class product_template(models.Model):
 	_inherit = 'product.template'
-	
-	graduacion = fields.Float(digits=(4, 2), string="Graduacion Alcoholica" help="Alcoholic graduation")
+	graduacion = fields.Float(digits=(4, 2), string="Graduacion Alcoholica")
 	format_id = fields.Many2one('product.format',ondelete='cascade', string="Formato")
 
